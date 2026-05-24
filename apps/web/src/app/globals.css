@@ -1,0 +1,57 @@
+@import '@atlas/design-tokens/css';
+@import '@atlas/ui/styles.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Page background — deep void with a near-black radial vignette to give the
+ * canvas a "looking into space" quality. The actual node rendering happens
+ * inside a WebGL canvas layered above this. */
+html,
+body {
+  background-color: var(--atlas-void);
+  background-image:
+    radial-gradient(120% 90% at 50% 0%, rgba(124, 198, 255, 0.04), transparent 60%),
+    radial-gradient(80% 80% at 50% 120%, rgba(167, 139, 250, 0.04), transparent 50%);
+  background-attachment: fixed;
+}
+
+/* The canvas root takes the full viewport. The header/HUD floats above. */
+.atlas-canvas-root {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: transparent;
+}
+
+@keyframes atlasToastIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* A faint star-field overlay made of dotted radial gradients. Pure CSS, no
+ * runtime cost. Adds atmosphere behind the graph. */
+.atlas-starfield {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1px 1px at 23% 17%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1px 1px at 67% 41%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(1px 1px at 13% 73%, rgba(255, 255, 255, 0.25), transparent),
+    radial-gradient(1px 1px at 88% 89%, rgba(255, 255, 255, 0.35), transparent),
+    radial-gradient(1px 1px at 51% 52%, rgba(255, 255, 255, 0.2), transparent),
+    radial-gradient(1px 1px at 78% 22%, rgba(255, 255, 255, 0.28), transparent),
+    radial-gradient(1px 1px at 35% 88%, rgba(255, 255, 255, 0.22), transparent);
+  opacity: 0.45;
+  mix-blend-mode: screen;
+}

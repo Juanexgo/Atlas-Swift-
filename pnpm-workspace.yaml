@@ -1,0 +1,8 @@
+packages:
+  - "apps/web"
+  - "apps/api"
+  - "packages/*"
+  # apps/mobile is excluded from the shared workspace install because its
+  # React Native 0.76 dependency pulls React 18 into the hoist, conflicting
+  # with web's React 19. Install it independently:
+  #   cd apps/mobile && pnpm install

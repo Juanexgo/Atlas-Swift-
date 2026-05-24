@@ -1,0 +1,24 @@
+'use client';
+
+/**
+ * Top-level provider tree. Kept thin on purpose — providers add cost on
+ * mount and tax every render below them. Each one earns its place.
+ */
+import { useState, type ReactNode } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+export function Providers({ children }: { children: ReactNode }) {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 60_000,
+            refetchOnWindowFocus: false,
+          },
+        },
+      }),
+  );
+
+  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+}

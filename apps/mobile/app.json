@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "Atlas",
+    "slug": "atlas",
+    "version": "0.0.1",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#000000",
+      "resizeMode": "cover"
+    },
+    "ios": {
+      "bundleIdentifier": "ai.atlas.app",
+      "supportsTablet": true,
+      "buildNumber": "1",
+      "infoPlist": {
+        "CADisableMinimumFrameDurationOnPhone": true,
+        "UIRequiresFullScreen": false
+      }
+    },
+    "android": {
+      "package": "ai.atlas.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#000000"
+      }
+    }
+  }
+}

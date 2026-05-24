@@ -1,0 +1,35 @@
+# Production-shaped local stack — Postgres + pgvector + Redis.
+# Default dev uses SQLite without docker; bring this up only when you
+# want to exercise the Postgres path.
+#
+#   docker compose up -d
+#   DATABASE_URL="postgresql://atlas:atlas@localhost:5432/atlas" \
+#     pnpm --filter @atlas/api prisma migrate deploy
+services:
+  postgres:
+    image: ankane/pgvector:latest
+    environment:
+      POSTGRES_USER: atlas
+      POSTGRES_PASSWORD: atlas
+      POSTGRES_DB: atlas
+    ports:
+      - "5432:5432"
+    volumes:
+      - atlas_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U atlas -d atlas"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - atlas_redis_data:/data
+
+volumes:
+  atlas_pg_data:
+  atlas_redis_data:

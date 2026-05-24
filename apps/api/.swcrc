@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json.schemastore.org/swcrc",
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "decorators": true,
+      "dynamicImport": true
+    },
+    "target": "es2022",
+    "keepClassNames": true,
+    "transform": {
+      "legacyDecorator": true,
+      "decoratorMetadata": true
+    },
+    "baseUrl": ".",
+    "paths": {
+      "@atlas/ai": ["../../packages/ai/src"],
+      "@atlas/types": ["../../packages/types/src"],
+      "@atlas/crdt": ["../../packages/crdt/src"]
+    }
+  },
+  "module": {
+    "type": "commonjs"
+  }
+}

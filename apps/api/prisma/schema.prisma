@@ -1,0 +1,63 @@
+// Atlas data model.
+//
+// Default: SQLite (works zero-config for dev).
+// Production: switch DATABASE_URL to a Postgres URL and run migrations.
+// pgvector is used for embedding storage on Postgres; SQLite stores the
+// vector as a JSON-encoded Float32 array. The application layer reads
+// either shape transparently.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Node {
+  id        String   @id
+  kind      String
+  title     String
+  body      String   @default("")
+  x         Float
+  y         Float
+  weight    Float    @default(0.5)
+  status    String   @default("active")
+  tags      String   @default("[]") // JSON array
+  projectId String?
+  createdAt BigInt
+  updatedAt BigInt
+
+  // Embedding stored as length-prefixed JSON of Float32 values.
+  // On Postgres we'd swap to vector(256) + pgvector ops.
+  embedding String?
+  embeddingProvider String?
+
+  edgesOut Edge[] @relation("EdgeSource")
+  edgesIn  Edge[] @relation("EdgeTarget")
+
+  @@index([projectId])
+  @@index([kind])
+}
+
+model Edge {
+  id        String   @id
+  source    String
+  target    String
+  kind      String   @default("link")
+  strength  Float    @default(0.5)
+  createdAt BigInt
+
+  sourceNode Node @relation("EdgeSource", fields: [source], references: [id], onDelete: Cascade)
+  targetNode Node @relation("EdgeTarget", fields: [target], references: [id], onDelete: Cascade)
+
+  @@index([source])
+  @@index([target])
+}
+
+model YDocSnapshot {
+  id        String   @id @default("atlas:graph:v1")
+  data      Bytes
+  updatedAt DateTime @updatedAt
+}

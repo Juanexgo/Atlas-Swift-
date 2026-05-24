@@ -1,0 +1,40 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build artifacts
+.next
+.turbo
+.expo
+dist
+out
+build
+coverage
+*.tsbuildinfo
+
+# Environment files (never commit secrets or local config)
+.env
+.env.local
+.env.*.local
+apps/*/.env
+
+# Local databases — these are dev artifacts, not source
+*.db
+*.db-journal
+apps/api/prisma/dev.db*
+
+# OS / editor
+.DS_Store
+.vscode
+.idea
+*.log
+
+# iOS / Android build outputs (if you ever eject mobile)
+ios/build
+android/app/build
+android/.gradle
+*.xcworkspace/xcuserdata
+*.xcodeproj/xcuserdata
+
+# Logs from runtime processes
+/tmp/*.log

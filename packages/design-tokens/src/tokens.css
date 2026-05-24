@@ -1,0 +1,60 @@
+/* Atlas — CSS variable layer for design tokens.
+ * Keep in sync with src/index.ts. The TS source is canonical; this file
+ * is the bridge that lets us style with `var(--atlas-…)`.
+ */
+
+:root {
+  /* Color — surface */
+  --atlas-void: #000000;
+  --atlas-ink: #06070a;
+  --atlas-graphite: #0e1014;
+  --atlas-smoke: #16181e;
+  --atlas-fog: #1f222b;
+
+  /* Color — glass */
+  --atlas-glass-base: rgba(255, 255, 255, 0.04);
+  --atlas-glass-raised: rgba(255, 255, 255, 0.06);
+  --atlas-glass-floating: rgba(255, 255, 255, 0.08);
+  --atlas-glass-border: rgba(255, 255, 255, 0.08);
+  --atlas-glass-border-strong: rgba(255, 255, 255, 0.14);
+
+  /* Color — text */
+  --atlas-text-primary: rgba(255, 255, 255, 0.96);
+  --atlas-text-secondary: rgba(255, 255, 255, 0.64);
+  --atlas-text-tertiary: rgba(255, 255, 255, 0.42);
+  --atlas-text-quaternary: rgba(255, 255, 255, 0.22);
+
+  /* Color — accent */
+  --atlas-accent-aurora: #7cc6ff;
+  --atlas-accent-nebula: #a78bfa;
+  --atlas-accent-plasma: #f472b6;
+  --atlas-accent-solar: #fcd34d;
+  --atlas-accent-forest: #6ee7b7;
+  --atlas-accent-coral: #fb923c;
+  --atlas-accent-indigo: #818cf8;
+
+  --atlas-focus: #7cc6ff;
+  --atlas-success: #34d399;
+  --atlas-warning: #fbbf24;
+  --atlas-danger: #f87171;
+
+  /* Radii */
+  --atlas-radius-xs: 4px;
+  --atlas-radius-sm: 6px;
+  --atlas-radius-md: 10px;
+  --atlas-radius-lg: 14px;
+  --atlas-radius-xl: 20px;
+  --atlas-radius-2xl: 28px;
+  --atlas-radius-pill: 999px;
+
+  /* Elevation blur */
+  --atlas-blur-raised: 24px;
+  --atlas-blur-floating: 40px;
+  --atlas-blur-command: 60px;
+  --atlas-blur-modal: 80px;
+
+  /* Adaptive accent — derived per-node, overridden at the focus overlay */
+  --atlas-adaptive-accent: var(--atlas-accent-aurora);
+
+  color-scheme: dark;
+}
