@@ -4,21 +4,34 @@ A futuristic spatial knowledge operating system. Notes, ideas, tasks,
 conversations, links, memories, projects, and documents rendered as a
 living, interactive knowledge universe.
 
+> Three platforms, one product: **web** (Next.js 16 + R3F + custom GLSL),
+> **iOS native** (SwiftUI + Canvas + CADisplayLink), and **cross-platform
+> mobile** (Expo + React Native Skia). All three share the same color
+> palette, layout algorithm, focus card structure, and AI provider
+> abstractions.
+
+📖 [Full case study](PORTFOLIO.md) · 🚀 [Deploy guide](DEPLOY.md) · 📹 [Video script](VIDEO_SCRIPT.md)
+
+---
+
 ```
-# Install everything (web + api + 7 packages — mobile installs separately)
+# Install everything (web + api + 5 packages — mobile + iOS install separately)
 pnpm install
 
 # Boot the API (NestJS + SQLite + AI + realtime WebSocket gateway)
 cd apps/api
 pnpm prisma:migrate:dev        # creates dev.db
-pnpm prisma:seed               # 17 nodes, 11 edges
+pnpm prisma:seed
 DATABASE_URL=file:./dev.db PORT=4001 pnpm start
 
-# Boot the web (Next.js 15 + R3F + spatial canvas)
+# Boot the web (Next.js 16 + R3F + spatial canvas)
 cd apps/web && pnpm dev        # → http://localhost:3001
 
-# Mobile (Expo + Skia) — separate install to avoid React 18 / 19 collision
-cd apps/mobile && pnpm install && pnpm start
+# Mobile (Expo + Skia) — standalone install (React 18 vs web's React 19)
+cd apps/mobile && pnpm install --ignore-workspace && pnpm start
+
+# iOS native (Swift + SwiftUI) — open in Xcode
+cd apps/ios && xcodegen generate && open Atlas.xcodeproj
 ```
 
 ## Repo
@@ -26,15 +39,16 @@ cd apps/mobile && pnpm install && pnpm start
 ```
 atlas/
 ├── apps/
-│   ├── web/                Next.js 15 (App Router, Turbopack, R3F v9)
+│   ├── web/                Next.js 16 (App Router, Turbopack, R3F v9)
 │   ├── api/                NestJS modular monolith (graph, ai, realtime, health)
-│   └── mobile/             Expo + RN Skia + Reanimated (standalone install)
+│   ├── mobile/             Expo SDK 54 + React Native Skia (cross-platform iOS + Android)
+│   └── ios/                Native iOS — SwiftUI + Canvas + CADisplayLink force layout
 ├── packages/
-│   ├── graph-engine/       R3F scene, force-layout worker, LOD, picking, bloom
+│   ├── graph-engine/       R3F scene, force-layout worker, LOD, picking
 │   ├── ai/                 Embeddings, semantic search, k-means, suggestions, summaries
 │   ├── ui/                 Glass surface, command palette, Kbd, motion primitives
 │   ├── design-tokens/      Color/space/motion/elevation as typed TS + CSS vars
-│   ├── crdt/               Yjs + IndexedDB binding, typed graph accessors
+│   ├── crdt/               Yjs + IndexedDB binding, realtime WebSocket provider
 │   └── types/              Zod schemas — single source of truth
 └── turbo.json
 ```
